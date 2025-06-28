@@ -1,0 +1,9 @@
+#balance-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#balance-text {
+    font-size: 24px;
+    font-weight: bold;
+}

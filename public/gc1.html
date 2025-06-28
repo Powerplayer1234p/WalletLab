@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Lab</title>
+    <link rel="stylesheet" href="gc1.css">
+    <script defer src="gc1.js"></script>
+    
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.jpg" alt="logo">
+            </div>
+        </div>
+        <nav class="navigation2">
+            <ul>
+            <li><a href="signin.html">Login</a></li>
+            <li><a href="#home">Home</a></li>
+        </ul>
+    </nav>
+        <nav class="navigation">
+            <ul>
+                <li><a href="#about">Transfer</a></li>
+                <li><a href="#how-it-works">Balance</a></li>
+                <li><a href="#donate">History</a></li>
+                <li><a href="#projects">Achievements</a></li>
+                <script>
+                    // Function to display the login alert
+                    function showLoginAlert() {
+                        alert("login first!");
+                    }
+            
+                    // Add event listeners to all home options
+                    const homeOptions = document.querySelectorAll(".navigation");
+                    homeOptions.forEach(option => {
+                        option.addEventListener("click", showLoginAlert);
+                    });
+                </script>
+
+                </nav>
+            </ul>
+        <div class="header-actions">
+            <button style="background-color: goldenrod"id="connect-button">Connect Wallet</button>
+            <div id="account-info"></div>
+            <div class="language-selector">
+                <select>
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="fr">FR</option>
+                    <option value="de">DE</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <header>
+        <div class="hero-section">
+            <video class="background-video" autoplay muted loop>
+                <source src="path-to-your-video.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <div class="hero-content">
+                <h1>Empowering Change Across the Globe</h1>
+                <p>Join us in making a difference through Web3 technology.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="donateBtn">Donate Now</button>
+                    <button class="btn btn-secondary" id="learnMoreBtn">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="impact-stats" class="impact-stats-section">
+        <div class="container">
+            <div class="stats-heading">
+                <h2>Our Global Impact</h2>
+                <p style="color: white;">Empowering communities and transforming lives through technology.</p>
+            </div>
+            <div class="stats-counters">
+                <div class="counter" data-target="5000000">
+                    <h3 class="count">0</h3>
+                    <p>Amount Raised</p>
+                </div>
+                <div class="counter" data-target="250">
+                    <h3 class="count">0</h3>
+                    <p>Projects Funded</p>
+                </div>
+                <div class="counter" data-target="100000">
+                    <h3 class="count">0</h3>
+                    <p>People Helped</p>
+                </div>
+            </div>
+            <div class="stats-map">
+                <h3 style="color: white;">Donate Funds</h3>
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="container">
+            <h2 style="color: white;">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="icon">
+                        <img src="logo.png" alt="Connect Wallet Icon">
+                    </div>
+                    <h3>Connect Your Wallet</h3>
+                    <p>Connect your cryptocurrency wallet quickly and securely to start making a difference.</p>
+                </div>
+                <div class="step">
+                    <div class="icon">
+                        <img src="logo.png" alt="Choose Cause Icon">
+                    </div>
+                    <h3>Choose a Cause</h3>
+                    <p>Select from a variety of causes and projects that align with your values and interests.</p>
+                </div>
+                <div class="step">
+                    <div class="icon">
+                        <img src="logo.png" alt="Make a Donation Icon">
+                    </div>
+                    <h3>Make a Donation</h3>
+                    <p>Easily donate using a range of cryptocurrencies and support impactful projects.</p>
+                </div>
+                <div class="step">
+                    <div class="icon">
+                        <img src="logo.png" alt="Track Impact Icon">
+                    </div>
+                    <h3>Track Impact</h3>
+                    <p>See how your contributions are making a difference in real-time, with full transparency.</p>
+                </div>
+            </div>
+            <div class="cta">
+                <button id="learn-more-btn">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-column">
+                    <h3>About Good Cause</h3>
+                    <p>Good Cause is a global charity organization utilizing Web3 technology to empower change worldwide. Join us in our mission to make a difference.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p>Email: support@goodcause.org</p>
+                    <p>Phone: +123-456-7890</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Subscribe to our newsletter" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Good Cause. All Rights Reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

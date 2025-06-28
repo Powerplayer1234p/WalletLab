@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Transaction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .transactions {
+            margin-top: 20px;
+        }
+
+        .transaction {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 5px solid #007bff;
+        }
+
+        .transaction p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ethereum Transaction History</h2>
+    <button onclick="getTransactionHistory()"onclick="connectMetaMask()">Load Transaction History</button>
+    <div class="transactions" id="transactions"></div>
+</div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+<script>
+    // Check if MetaMask is installed
+    if (typeof window.ethereum !== 'undefined') {
+        console.log('MetaMask is installed!');
+    } else {
+        document.getElementById('transactions').innerHTML = 'Please install MetaMask!';
+    }
+    async function connectMetaMask() {
+    try {
+        // Check if MetaMask is installed
+        if (!window.ethereum) {
+            alert('MetaMask is not installed. Please install it from https://metamask.io/');
+            return;
+        }
+
+        // Request account access
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+
+        // Display the connected account
+        accountInfo.textContent = `Connected account: ${account}`;
+    } catch (error) {
+        console.error('Error connecting to MetaMask:', error);
+        alert('An error occurred while connecting to wallets. Please try again.');
+    }
+}
+    async function getTransactionHistory() {
+        try {
+            // Request account access if needed
+            await ethereum.request({ method: 'eth_requestAccounts' });
+
+            // Initialize provider
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+            // Get the connected wallet's address
+            const signer = provider.getSigner();
+            const userAddress = await signer.getAddress();
+
+            // Get the transaction history for the address
+            const etherscanProvider = new ethers.providers.EtherscanProvider('homestead', '7EPYTRUY9CUBTTN5B7J5YPI65GRD3NEDQQ');
+            const history = await etherscanProvider.getHistory(userAddress);
+
+            // Display the transaction history
+            const transactionContainer = document.getElementById('transactions');
+            transactionContainer.innerHTML = ''; // Clear previous transactions
+
+            if (history.length === 0) {
+                transactionContainer.innerHTML = '<p>No transactions found.</p>';
+                return;
+            }
+
+            history.forEach(tx => {
+                const txElement = document.createElement('div');
+                txElement.className = 'transaction';
+                txElement.innerHTML = `
+                    <p><strong>Hash:</strong> ${tx.hash}</p>
+                    <p><strong>From:</strong> ${tx.from}</p>
+                    <p><strong>To:</strong> ${tx.to}</p>
+                    <p><strong>Value:</strong> ${ethers.utils.formatEther(tx.value)} ETH</p>
+                    <p><strong>Date:</strong> ${new Date(tx.timestamp * 1000).toLocaleString()}</p>
+                    <p><strong>Status:</strong> ${tx.confirmations > 0 ? 'Confirmed' : 'Pending'}</p>
+                `;
+                transactionContainer.appendChild(txElement);
+            });
+
+        } catch (error) {
+            console.error(error);
+            document.getElementById('transactions').innerHTML = 'Failed to load transactions: ' + error.message;
+        }
+    }
+</script>
+<script>src="wallet.js"</script>
+</body>
+</html>

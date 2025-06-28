@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereum Transfer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .status {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Transfer Ethereum</h2>
+    <input type="text" id="recipient" placeholder="Recipient Address">
+    <input type="text" id="amount" placeholder="Amount in ETH">
+    <button onclick="sendTransaction()">Send</button>
+    <div class="status" id="status"></div>
+</div>
+
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+<script>
+    // Check if MetaMask is installed
+    if (typeof window.ethereum !== 'undefined') {
+        console.log('MetaMask is installed!');
+    } else {
+        document.getElementById('status').innerHTML = 'Please install MetaMask!';
+    }
+
+    async function sendTransaction() {
+        const recipient = document.getElementById('recipient').value;
+        const amount = document.getElementById('amount').value;
+
+        if (!recipient || !amount) {
+            document.getElementById('status').innerHTML = 'Please enter both recipient address and amount.';
+            return;
+        }
+
+        try {
+            // Request account access if needed
+            await ethereum.request({ method: 'eth_requestAccounts' });
+
+            // Initialize provider
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+            // Get signer
+            const signer = provider.getSigner();
+
+            // Convert amount to wei
+            const tx = {
+                to: recipient,
+                value: ethers.utils.parseEther(amount)
+            };
+
+            // Send the transaction
+            const transaction = await signer.sendTransaction(tx);
+
+            // Wait for transaction to be mined
+            document.getElementById('status').innerHTML = 'Transaction sent! Waiting for confirmation...';
+            await transaction.wait();
+
+            document.getElementById('status').innerHTML = 'Transaction successful! Hash: ' + transaction.hash;
+        } catch (error) {
+            console.error(error);
+            document.getElementById('status').innerHTML = 'Transaction failed: ' + error.message;
+        }
+    }
+</script>
+
+</body>
+</html>
